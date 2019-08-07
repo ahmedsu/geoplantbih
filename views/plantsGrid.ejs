@@ -45,54 +45,8 @@
           <!-- Page Heading -->
           <h1 class="h3 mb-4 text-white">Pregled svih biljaka</h1>
 
-          <div class="row custom-row-center">
-            <div class="card-deck">
-              <div class="card border-0">
-                <img src="/img/kamilica.jpeg" class="card-img-top velicinaGrida" alt="./img/image-not-found.png">
-                <div class="card-body">
-                  <h5 class="card-title">Kamilica</h5>
-                </div>
-              </div>
-              <div class="card border-0">
-                <img src="/img/lavanda.jpg" class="card-img-top velicinaGrida" alt="./img/image-not-found.png">
-                <div class="card-body">
-                  <h5 class="card-title">Lavanda</h5>
-                </div>
-              </div>
-              <div class="card border-0">
-                <img src="/img/majcina-dusica.jpg" class="card-img-top velicinaGrida" alt="./img/image-not-found.png">
-                <div class="card-body">
-                  <h5 class="card-title">Majčina dušica</h5>
-                </div>
-              </div>
-            </div>
-        </div>
-      
-      
-        <div class="row custom-row-center">
-          <div class="card-deck div-margin-top">
-            <div class="card border-0">
-              <img src="/img/menta.jpg" class="card-img-top velicinaGrida" alt="./image-not-found.png">
-              <div class="card-body">
-                <h5 class="card-title">Menta</h5>
-              </div>
-            </div>
-            <div class="card border-0">
-              <img src="/img/ruzmarin.jpg" class="card-img-top velicinaGrida" alt="./image-not-found.png">
-              <div class="card-body">
-                <h5 class="card-title">Ružmarin</h5>
-              </div>
-            </div>
-            <div class="card border-0">
-              <img src="/img/ljiljan.jpg" class="card-img-top velicinaGrida" alt="./image-not-found.png">
-              <div class="card-body">
-                <h5 class="card-title">Bosanski ljiljan</h5>
-                
-              </div>
-            </div>
-          </div>
-          </div>
-      
+          
+            <div id="prikaz"></div>
       
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-center">
@@ -168,3 +122,71 @@
 </body>
 
 </html>
+<script>
+  const mainUrl = 'http://192.168.43.87:3003';
+
+  $(function(){
+    console.log("UCITAVANJE");
+    getPlants(); // izvrsavanje funkcije
+  })
+
+  function getPlants(){
+    console.log("Uslo u funkciju");
+    let requestUrl = mainUrl + "/plants";
+    console.log(requestUrl);
+    $.ajax({
+      type:'GET',
+      url: requestUrl,
+      headers: {
+        'Access-Control-Allow-Origin': 'http://localhost:3000',
+        'Content-Type': 'application/json'
+      },
+      success: (data) => {
+        console.log("Uspjesan get");
+        console.log(data);
+        let html = '';
+        let lastIndex = 0;
+        data.map((plant, index) => {
+          console.log("TRENUTNI: ", index);
+          console.log("LAST INDEX: ", lastIndex);
+          console.log("LAST INDEX + 1: ", lastIndex+3);
+
+          if(index == 0 || index == lastIndex +3){
+            if(index == 0){
+              html += '<div class="row custom-row-center">';
+            }
+            else {
+              html += '</div><div class="row custom-row-center">';            
+            }
+            lastIndex = index;
+          }
+           /*<div class="card border-0">
+              <img src="/img/ljiljan.jpg" class="card-img-top velicinaGrida" alt="./image-not-found.png">
+              <div class="card-body">
+                <h5 class="card-title">Bosanski ljiljan</h5>
+                
+              </div>
+            </div> */
+          html+= `<div class="card border-0">
+              <img src="/img/ljiljan.jpg" class="card-img-top velicinaGrida" alt="./image-not-found.png">
+              <div class="card-body">
+                <h5 class="card-title"> ${
+                  plant.name
+                }
+                </h5>
+                
+              </div>
+            </div>`
+
+        });
+        html += '</div>';
+        $("#prikaz").html(html);
+      },
+      error: (err) => {
+        console.log("Error");
+        console.log(err);
+      }
+    })
+  }
+</script>
+
