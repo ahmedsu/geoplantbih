@@ -281,8 +281,9 @@
 </html>
 
 <script>
-  const mainUrl = 'http://192.168.43.87:3003';
-
+  const ammarUrl = 'http://192.168.43.87:3003';
+  const azraUrl = 'http://192.168.43.102:3003'
+  const mainUrl = azraUrl;
   $(function(){
     console.log("UCITAVANJE");
     getPlants(); // izvrsavanje funkcije
@@ -328,7 +329,7 @@
                     <div class="btn flowerBar oznakaBiljke text-white" > <img src="/img/leaf.png" class="logoBiljke"> Ukrasno</div>
 
                   <h5 class="card-title">${plant.name}</h5>
-                  <p class="card-text">Autor: Visiot</p>
+                  <p class="card-text"></p>
                   <p class="card-text">Lokacija: Visoko</p>
                 </div>
               </div>
