@@ -42,10 +42,10 @@
                                             <li class="list-group-item"><span class="" style="color:grey" >Imate problema sa našom aplikacijom?
                                                     Ostavite povratne informacije ili podijelite svoje ideje sa nama!</span></li>
                                                 <br>
-                                                    <textarea rows="9" cols="10" maxlength="300" ></textarea>
+                                                    <textarea id="bugText" rows="9" cols="10" maxlength="300" ></textarea>
                                           </ul>
                           <br>
-                          <a href="index.html" class="btn btn-primary btn-user btn-block btn-custom">
+                          <a id="btnSend" href="index.html" class="btn btn-primary btn-user btn-block btn-custom">
                               Pošalji
                             </a><br>
                             <a href="odgovori.html" class="btn btn-primary btn-user btn-block btn-custom">
@@ -74,6 +74,61 @@
     <!-- Custom scripts for all pages-->
     <script src="/javascripts/sb-admin-2.min.js"></script>
   
+
+    <script>
+        const ammarcehaUrl = 'http://192.168.43.87:3003';
+        const azraUrl = 'http://192.168.43.102:3003';
+      
+        const mainUrl = ammarcehaUrl;
+      
+        $(function(){ // on document load
+          getBugs();
+      
+          $("#btnSend").click(() => {     
+            insertBug();
+          })
+        });
+      
+        
+      
+       function insertBug(){
+        /*
+        {
+         "userid": 0,
+         "problem": "string",
+         "timestamp": "string"
+        }*/
+      
+        let userId = 1;
+        let problem = $("#bugText").val();
+        let timestamp = Math.floor(Date.now() / 1000);
+             
+        let bug = {
+          "userid": userId,
+          "problem": problem,
+          "timestamp": timestamp,
+         
+        }
+      
+        console.log("Bug: ");
+        console.log(bug);
+      
+        fetch(mainUrl+"/bugs",{
+                 method:'POST',
+                 headers:{
+                     'Accept': 'application/json',
+                     'Content-Type': 'application/json'
+                 },
+                 body: JSON.stringify(bug)
+             })
+             .then(res=>console.log(res))
+             .catch(err=>console.log(err));
+       }
+      </script>
+
+
+
+
 
 </body>
   
