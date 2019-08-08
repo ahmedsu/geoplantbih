@@ -56,37 +56,27 @@
                         <form role="form" method="post" action="http://192.168.43.87:3003/plants" enctype="multipart/form-data">
                         <div class="col mr-2">
                             <label for="exampleInputEmail1"></label>
-              <input type="text" class="form-control custom-width" id="nazivBiljke" aria-describedby="emailHelp" placeholder="Unesi naziv">
+              <input type="text" class="form-control custom-width" id="nazivBiljke" name="name" placeholder="Unesi naziv">
               
               <label for="exampleInputEmail1"></label>
-              <input type="text" class="form-control custom-width" id="latinskiNaziv" placeholder="Unesi latinski naziv">
+              <input type="text" class="form-control custom-width" id="latinskiNaziv" name="latName" placeholder="Unesi latinski naziv">
               <label for="exampleInputEmail1"></label>
               <select class="form-control" id="selectPorodice">
 
                 </select>
-              <label for="exampleInputEmail1"></label>
-              
-              <input type="text" class="form-control custom-width" id="visinaBiljke" aria-describedby="emailHelp" placeholder="Unesi visinu">
-              <small id="emailHelp" class="form-text text-muted"></small>
-              
-              
+                           
               <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    
-                  </div>
-                  <!--pocetak forme, koordinate-->
-                  
-                  
+                  <!--pocetak forme, koordinate-->             
                       <div class="form-row">
                         <div class="col-md-4 mb-3">
                           <label for="validationServer01"></label>
-                          <input type="text" class="form-control" id="lat" placeholder="Lat" value="" >
+                          <input type="text" class="form-control" id="lat" placeholder="Lat" name="geoLat" value="" >
                           
                         </div>
                         
                         <div class="col-md-4 mb-3">
                           <label for="validationServer02"></label>
-                          <input type="text" class="form-control" id="lon" placeholder="Long" value="" ></div>
+                          <input type="text" class="form-control" id="lon" placeholder="Long" name="geoLon" value="" ></div>
                           
                                   <div class="col-md-4 mb-3 ">
                                   <label for="validationServer02"></label>
