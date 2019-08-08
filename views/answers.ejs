@@ -51,7 +51,7 @@
 
               <!-- Default Card Example -->
               <div class="card mb-4">
-                <div class="card-header">
+                <div id="textQuestion" class="card-header">
                   Pitanje...
                 </div>
                 <div class="card-body">
@@ -61,7 +61,7 @@
 
               <!-- Basic Card Example -->
               <div class="card mb-4">
-                <div class="card-header">
+                <div id="textQuestion" class="card-header">
                    Pitanje...
                 </div>
                 <div class="card-body">
@@ -70,7 +70,7 @@
 
               </div>
               <div class="card mb-4">
-                <div class="card-header">
+                <div id="textQuestion" class="card-header">
                     Pitanje...
                 </div>
                 <div class="card-body">
@@ -84,7 +84,7 @@
 
               <!-- Dropdown Card Example -->
               <div class="card mb-4">
-                  <div class="card-header">
+                  <div id="textQuestion" class="card-header">
                      Pitanje...
                   </div>
                   <div class="card-body">
@@ -94,10 +94,10 @@
   
                 <!-- Collapsable Card Example -->
                 <div class="card mb-4">
-                    <div class="card-header">
+                    <div id="textQuestion" class="card-header">
                        Pitanje...
                     </div>
-                    <div class="card-body">
+                    <div  class="card-body">
                       Odgovor...
                     </div>
                   </div>
@@ -176,6 +176,57 @@
   <!-- Custom scripts for all pages-->
   <script src="/javascripts/sb-admin-2.min.js"></script>
 
+ 
+ <script>
+      const ammarcehaUrl = 'http://192.168.43.87:3003';
+      const azraUrl = 'http://192.168.43.102:3003';
+    
+      const mainUrl = ammarcehaUrl;
+    
+      $(function(){ // on document load
+        getBugs();
+    
+        $("#textQuestion").click(() => {     
+          insertBug();
+        })
+      });
+    
+      
+    
+     function insertBug(){
+      /*
+      {
+       "userid": 0,
+       "problem": "string",
+       "timestamp": "string"
+      }*/
+    
+      let userId = 1;
+      let problem = $("#textQuestion").val();
+      let timestamp = Math.floor(Date.now() / 1000);
+           
+      let bug = {
+        "userid": userId,
+        "problem": problem,
+        "timestamp": timestamp,
+       
+      }
+    
+      console.log("Bug: ");
+      console.log(bug);
+    
+      fetch(mainUrl+"/bugs",{
+               method:'GET',
+               headers:{
+                   'Accept': 'application/json',
+                   'Content-Type': 'application/json'
+               },
+               body: JSON.stringify(bug)
+           })
+           .then(res=>console.log(res))
+           .catch(err=>console.log(err));
+     }
+    </script>
 </body>
 
 </html>
