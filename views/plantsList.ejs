@@ -139,9 +139,10 @@
 </html>
 
 <script>
-  const ammarUrl = 'http://192.168.43.87:3003';
-  const azraUrl = 'http://192.168.43.102:3003'
-  const mainUrl = azraUrl;
+  const ammarcehaUrl = 'http://192.168.43.87:3003';
+  const azraUrl = 'http://192.168.43.102:3003';
+
+  const mainUrl = ammarcehaUrl;
   $(function(){
     console.log("UCITAVANJE");
     getPlants(); // izvrsavanje funkcije
@@ -180,7 +181,7 @@
           html+= `<div class="card mb-3 ${index == lastIndex + 1 ? 'div-margin-left' : ''} border-0" style="max-width: 530px;">
             <div class="row no-gutters h-100">
               <div class="col-md-4">
-                <img src="/img/00.jpg"  class="card-img h-100" alt="/img/image-not-found.png">
+                <img src="${plant.image != null ? plant.image : ''}"  class="card-img h-100" alt="Nema slike">
               </div>
               <div class="col-md-8">
                 <div class="card-body">

@@ -153,10 +153,10 @@
 
           if(index == 0 || index == lastIndex +3){
             if(index == 0){
-              html += '<div class="row custom-row-center">';
+              html += '<div class="row custom-row-center"><div class="card-deck">';
             }
             else {
-              html += '</div><div class="row custom-row-center">';            
+              html += '</div></div><div class="row custom-row-center"><div class="card-deck">';            
             }
             lastIndex = index;
           }
@@ -167,8 +167,8 @@
                 
               </div>
             </div> */
-          html+= `<div class="card border-0">
-              <img src="/img/ljiljan.jpg" class="card-img-top velicinaGrida" alt="./image-not-found.png">
+          html+= `<div class="card border-0" style="margin-bottom: 20px">
+              <img src="${plant.image != null ? plant.image : ''}" class="card-img-top velicinaGrida" alt="Nema slike">
               <div class="card-body">
                 <h5 class="card-title"> ${
                   plant.name

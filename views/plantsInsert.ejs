@@ -55,15 +55,17 @@
                       <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <label for="exampleInputEmail1"></label>
-              <input type="email" class="form-control custom-width" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Unesi naziv">
+              <input type="email" class="form-control custom-width" id="nazivBiljke" aria-describedby="emailHelp" placeholder="Unesi naziv">
               
               <label for="exampleInputEmail1"></label>
-              <input type="email" class="form-control custom-width" id="exampleInputEmail1" placeholder="Unesi latinski naziv">
+              <input type="email" class="form-control custom-width" id="latinskiNaziv" placeholder="Unesi latinski naziv">
               <label for="exampleInputEmail1"></label>
-              <input type="email" class="form-control custom-width" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder=" Unesi naziv porodice">
+              <select class="form-control" id="selectPorodice">
+
+                </select>
               <label for="exampleInputEmail1"></label>
               
-              <input type="email" class="form-control custom-width" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Unesi visinu">
+              <input type="email" class="form-control custom-width" id="visinaBiljke" aria-describedby="emailHelp" placeholder="Unesi visinu">
               <small id="emailHelp" class="form-text text-muted"></small>
               
               
@@ -77,13 +79,13 @@
                       <div class="form-row">
                         <div class="col-md-4 mb-3">
                           <label for="validationServer01"></label>
-                          <input type="text" class="form-control" id="validationServer01" placeholder="Lat" value="" >
+                          <input type="text" class="form-control" id="lat" placeholder="Lat" value="" >
                           
                         </div>
                         
                         <div class="col-md-4 mb-3">
                           <label for="validationServer02"></label>
-                          <input type="text" class="form-control" id="validationServer02" placeholder="Long" value="" ></div>
+                          <input type="text" class="form-control" id="lon" placeholder="Long" value="" ></div>
                           
                                   <div class="col-md-4 mb-3 ">
                                   <label for="validationServer02"></label>
@@ -100,21 +102,10 @@
                             <div class="input-group-append">
                               
                             </div>
-                          </div>
-                          
-                        
-                            
-                        
-                        
-                        
-                            
-                    
-                    
-                    
-                    
+                          </div>                 
                   </div>
                   
-                  <button type="submit" class="btn btn-primary btn-lg" style="left:500; background:seagreen">Submit</button>
+                  <button type="submit" id="btnUnos" class="btn btn-primary btn-lg" style="left:500; background:seagreen">Unesi</button>
                 </div>
                         </div>
                       </div>
@@ -122,13 +113,9 @@
                       <br>
                       
                     
-                  </div>
-                  
+                    </div>
 
-                 
-                  
-    
-                <!--picture-->
+               <!--picture-->
                 <div class="col-md-4">
                     <div class="card border-left-warning shadow h-100 py-2 div-margin div-height">
                       <div class="card-body">
@@ -216,4 +203,88 @@
 </body>
 
 </html>
+
+<script>
+  const ammarcehaUrl = 'http://192.168.43.87:3003';
+  const azraUrl = 'http://192.168.43.102:3003';
+
+  const mainUrl = ammarcehaUrl;
+
+  $(function(){ // on document load
+    getPorodice();
+
+    $("#btnUnos").click(() => {     
+      insertPlant();
+    })
+  });
+
+  function getPorodice(){
+    console.log("Poziva se !");
+    $.ajax({
+      type:'GET',
+      url: mainUrl+'/plantfamilies',
+      success: (data) => {
+        console.log("Porodice GET!");
+        console.log(data);
+        let html = '';
+        if(data.length > 0){
+          data.forEach((family, index) => {
+            html += `<option value="${family.id}">${family.name}</option>`;
+          })
+        }
+        $("#selectPorodice").html(html);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+
+ function insertPlant(){
+  /*
+  {
+    "name": "string",
+    "latName": "string",
+    "family": 0,
+    "kingdom": "string",
+    "plantOrder": "string",
+    "about": "string",
+    "geoLat": "string",
+    "geoLon": "string",
+    "image": "string"
+  }*/
+
+  let nazivBiljke = $("#nazivBiljke").val();
+  let latinskiNaziv = $("#latinskiNaziv").val();
+  let family = $("#selectPorodice option:selected").val();
+  let lat = $("#lat").val();
+  let lon = $("#lon").val();
+
+  let plantObj = {
+    "name": nazivBiljke,
+    "latName": latinskiNaziv,
+    "family": parseInt(family),
+    "kingdom": "Kingdom of Orhideo",
+    "plantOrder": "Order of Orhideo",
+    "about": "",
+    "geoLat": lat,
+    "geoLon": lon,
+    "image": null
+  }
+
+  console.log("Biljka: ");
+  console.log(plantObj);
+
+  fetch(mainUrl+"/plants",{
+           method:'POST',
+           headers:{
+               'Accept': 'application/json',
+               'Content-Type': 'application/json'
+           },
+           body: JSON.stringify(plantObj)
+       })
+       .then(res=>console.log(res))
+       .catch(err=>console.log(err));
+ }
+</script>
 

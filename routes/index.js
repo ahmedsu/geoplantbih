@@ -11,4 +11,8 @@ router.get('/login', function(req, res, next) {
   res.render('login', { title: 'GeoPlant - Login' });
 });
 
+router.get('/questions', function(req,res,next){
+  res.render('questions', {title: 'Lista pitanja'});
+});
+
 module.exports = router;
