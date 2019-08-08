@@ -53,19 +53,20 @@
                 <div class="card border-left-primary shadow h-100 py-2 div-margin">
                     <div class="card-body">
                       <div class="row no-gutters align-items-center">
+                        <form role="form" method="post" action="http://192.168.43.87:3003/plants" enctype="multipart/form-data">
                         <div class="col mr-2">
                             <label for="exampleInputEmail1"></label>
-              <input type="email" class="form-control custom-width" id="nazivBiljke" aria-describedby="emailHelp" placeholder="Unesi naziv">
+              <input type="text" class="form-control custom-width" id="nazivBiljke" aria-describedby="emailHelp" placeholder="Unesi naziv">
               
               <label for="exampleInputEmail1"></label>
-              <input type="email" class="form-control custom-width" id="latinskiNaziv" placeholder="Unesi latinski naziv">
+              <input type="text" class="form-control custom-width" id="latinskiNaziv" placeholder="Unesi latinski naziv">
               <label for="exampleInputEmail1"></label>
               <select class="form-control" id="selectPorodice">
 
                 </select>
               <label for="exampleInputEmail1"></label>
               
-              <input type="email" class="form-control custom-width" id="visinaBiljke" aria-describedby="emailHelp" placeholder="Unesi visinu">
+              <input type="text" class="form-control custom-width" id="visinaBiljke" aria-describedby="emailHelp" placeholder="Unesi visinu">
               <small id="emailHelp" class="form-text text-muted"></small>
               
               
@@ -75,7 +76,7 @@
                   </div>
                   <!--pocetak forme, koordinate-->
                   
-                  <form>
+                  
                       <div class="form-row">
                         <div class="col-md-4 mb-3">
                           <label for="validationServer01"></label>
@@ -93,10 +94,10 @@
                                   <button type="button" class="btn btn-light"  id="validationServer02">Odaberi na karti</button>
                                 </div>
                             </div>
-                        </form> <!--kraj forme za koordinate-->
+                      
                         <div class="input-group mb-3 custom-width">
                             <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="inputGroupFile02">
+                              <input class="form-control custom-file-input" type="file" name="uploaded_image" accept=""/>
                               <label class="custom-file-label" for="inputGroupFile02">Odaberi sliku</label>
                             </div>
                             <div class="input-group-append">
@@ -106,7 +107,8 @@
                   </div>
                   
                   <button type="submit" id="btnUnos" class="btn btn-primary btn-lg" style="left:500; background:seagreen">Unesi</button>
-                </div>
+                </div><!-- end -->
+              </form>
                         </div>
                       </div>
                       </div>
@@ -213,7 +215,7 @@
   $(function(){ // on document load
     getPorodice();
 
-    $("#btnUnos").click(() => {     
+    $("#btnUnosss").click(() => {     
       insertPlant();
     })
   });
