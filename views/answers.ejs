@@ -176,57 +176,75 @@
   <!-- Custom scripts for all pages-->
   <script src="/javascripts/sb-admin-2.min.js"></script>
 
- 
- <script>
-      const ammarcehaUrl = 'http://192.168.43.87:3003';
-      const azraUrl = 'http://192.168.43.102:3003';
+  <script>
+      const mainUrl = 'http://192.168.43.87:3003';
     
-      const mainUrl = ammarcehaUrl;
+      $(function(){
+        console.log("UCITAVANJE");
+        getBugs(); // izvrsavanje funkcije
+      })
     
-      $(function(){ // on document load
-        getBugs();
+      function getBugs(){
+        console.log("Uslo u funkciju");
+        let requestUrl = mainUrl + "/bugs";
+        console.log(requestUrl);
+        $.ajax({
+          type:'GET',
+          url: requestUrl,
+          headers: {
+            'Access-Control-Allow-Origin': 'http://localhost:3000',
+            'Content-Type': 'application/json'
+          },
+          success: (data) => {
+            console.log("Uspjesan get");
+            console.log(data);
+            let html = '';
+            let lastIndex = 0;
+            data.map((bugs, index) => {
+              console.log("TRENUTNI: ", index);
+              console.log("LAST INDEX: ", lastIndex);
+              console.log("LAST INDEX + 1: ", lastIndex+3);
     
-        $("#textQuestion").click(() => {     
-          insertBug();
+              if(index == 0 || index == lastIndex +3){
+                if(index == 0){
+                  html += '<div class="card mb-4"> </div>';
+                }
+                else {
+                  html += '<div class="card-body"> </div>';            
+                }
+                lastIndex = index;
+              }
+               /*
+                <div class="card mb-4">
+                <div id="textQuestion" class="card-header">
+                   Pitanje...
+                </div>
+                <div class="card-body">
+                  Odgovor...
+                </div>
+
+               */
+              html+= `<div class="card mb-4">
+                <div id="textQuestion" class="card-header">
+                   
+                </div>
+                <div class="card-body">
+                  Odgovor...
+                </div>`
+    
+            });
+            html += '</div>';
+            $("#prikaz").html(html);
+          },
+          error: (err) => {
+            console.log("Error");
+            console.log(err);
+          }
         })
-      });
-    
-      
-    
-     function insertBug(){
-      /*
-      {
-       "userid": 0,
-       "problem": "string",
-       "timestamp": "string"
-      }*/
-    
-      let userId = 1;
-      let problem = $("#textQuestion").val();
-      let timestamp = Math.floor(Date.now() / 1000);
-           
-      let bug = {
-        "userid": userId,
-        "problem": problem,
-        "timestamp": timestamp,
-       
       }
-    
-      console.log("Bug: ");
-      console.log(bug);
-    
-      fetch(mainUrl+"/bugs",{
-               method:'GET',
-               headers:{
-                   'Accept': 'application/json',
-                   'Content-Type': 'application/json'
-               },
-               body: JSON.stringify(bug)
-           })
-           .then(res=>console.log(res))
-           .catch(err=>console.log(err));
-     }
     </script>
+     
+
 </body>
 
 </html>
