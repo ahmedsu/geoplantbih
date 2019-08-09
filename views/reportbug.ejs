@@ -45,7 +45,7 @@
                                                     <textarea id="bugText" rows="9" cols="10" maxlength="300" ></textarea>
                                           </ul>
                           <br>
-                          <a id="btnSend" href="index.html" class="btn btn-primary btn-user btn-block btn-custom">
+                          <a id="btnSend" class="btn btn-primary btn-user btn-block btn-custom">
                               Pošalji
                             </a><br>
                             <a href="odgovori.html" class="btn btn-primary btn-user btn-block btn-custom">
@@ -76,13 +76,13 @@
   
 
     <script>
+        const webSrw = "http://192.168.43.87:3000";
         const ammarcehaUrl = 'http://192.168.43.87:3003';
         const azraUrl = 'http://192.168.43.102:3003';
       
         const mainUrl = ammarcehaUrl;
       
         $(function(){ // on document load
-          getBugs();
       
           $("#btnSend").click(() => {     
             insertBug();
@@ -121,7 +121,9 @@
                  },
                  body: JSON.stringify(bug)
              })
-             .then(res=>console.log(res))
+             .then(res=>
+              window.location.href = webSrw
+             )
              .catch(err=>console.log(err));
        }
       </script>

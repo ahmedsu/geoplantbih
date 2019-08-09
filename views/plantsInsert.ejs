@@ -76,7 +76,8 @@
                         
                         <div class="col-md-4 mb-3">
                           <label for="validationServer02"></label>
-                          <input type="text" class="form-control" id="lon" placeholder="Long" name="geoLon" value="" ></div>
+                          <input type="text" class="form-control" id="lon" placeholder="Long" name="geoLon" value="" >
+                        </div>
                           
                                   <div class="col-md-4 mb-3 ">
                                   <label for="validationServer02"></label>
@@ -84,7 +85,6 @@
                                   <button type="button" class="btn btn-light"  id="validationServer02">Odaberi na karti</button>
                                 </div>
                             </div>
-                      
                         <div class="input-group mb-3 custom-width">
                             <div class="custom-file">
                               <input class="form-control custom-file-input" type="file" name="uploaded_image" accept=""/>
@@ -93,7 +93,16 @@
                             <div class="input-group-append">
                               
                             </div>
-                          </div>                 
+                          </div>  
+                  </div>
+
+                  <div class="col-md-4 mb-3">
+                    <label>Odaberite tip biljke: </label>
+                    <div style="width: 90px;">
+                      <input type="radio" value="otrovna" name="type"> Otrovna
+                      <input type="radio" value="ljekovita" name="type"> Ljekovita
+                      <input type="radio" value="neutralna" name="type"> Neutralna
+                    </div>
                   </div>
                   
                   <button type="submit" id="btnUnos" class="btn btn-primary btn-lg" style="left:500; background:seagreen">Unesi</button>

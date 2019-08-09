@@ -186,42 +186,18 @@
       $(function(){ // on document load
         getBugs();
     
-        $("#textQuestion").click(() => {     
-          insertBug();
-        })
       });
     
       
     
-     function insertBug(){
-      /*
-      {
-       "userid": 0,
-       "problem": "string",
-       "timestamp": "string"
-      }*/
+     function getBugs(){
     
-      let userId = 1;
-      let problem = $("#textQuestion").val();
-      let timestamp = Math.floor(Date.now() / 1000);
-           
-      let bug = {
-        "userid": userId,
-        "problem": problem,
-        "timestamp": timestamp,
-       
-      }
-    
-      console.log("Bug: ");
-      console.log(bug);
-    
-      fetch(mainUrl+"/bugs",{
+      fetch(mainUrl+"/bugs/user/1",{
                method:'GET',
                headers:{
                    'Accept': 'application/json',
                    'Content-Type': 'application/json'
-               },
-               body: JSON.stringify(bug)
+               }
            })
            .then(res=>console.log(res))
            .catch(err=>console.log(err));

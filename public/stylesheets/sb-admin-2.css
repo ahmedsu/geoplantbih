@@ -12147,9 +12147,15 @@ margin-bottom: 15px !important;
 }
 
 .velicinaGrida {
-  height: 200px !important;
-  max-width: 340px !important;
+  height: 235px !important;
+  max-width: 280px !important;
   width: 100%;
+}
+
+.listImage {
+  min-height: 180px !important;
+  max-width: 350px !important;
+  max-height: 180px !important;
 }
 
 .custom-input-width {
