@@ -20,7 +20,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="ucitajVrijednosti()">
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -59,7 +59,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-color:text-uppercase mb-1">Ukupno biljaka (riješeno)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">4000</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800" id="brojBiljaka">4000</div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-seedling"></i>
@@ -376,6 +376,25 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBV-8rNBU_ch5FsfdEVAfqFhVX-Kg5QnFY&callback=initMap"
   async defer></script>
 
+
+  <script>
+       const ammarcehaUrl = 'http://192.168.43.87:3003';
+        const azraUrl = 'http://192.168.43.102:3003';
+      
+        const mainUrl = ammarcehaUrl;
+
+
+ function ucitajVrijednosti(){
+
+$.get(mainUrl+"/plants/count", function(res){ 
+  console.log(res);
+ // $("#brojBiljaka").val()
+})
+
+ }
+  
+  
+  </script>
 </body>
 
 </html>
