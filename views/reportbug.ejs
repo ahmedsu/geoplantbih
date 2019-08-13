@@ -45,7 +45,7 @@
                                                     <textarea id="bugText" rows="9" cols="10" maxlength="300" ></textarea>
                                           </ul>
                           <br>
-                          <a id="btnSend" class="btn btn-primary btn-user btn-block btn-custom">
+                          <a id="btnSend" class="btn btn-primary btn-user btn-block btn-custom text-white">
                               Pošalji
                             </a><br>
                             <a href="odgovori.html" class="btn btn-primary btn-user btn-block btn-custom">
@@ -85,6 +85,11 @@
         $(function(){ // on document load
       
           $("#btnSend").click(() => {     
+            let text = $("#bugText").val();
+            if(text.length <= 0){
+              alert("Morate unijeti tekst problema.");
+              return;
+            }
             insertBug();
           })
         });
