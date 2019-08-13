@@ -46,76 +46,9 @@
           <h1 class="h3 mb-4 text-white">ODGOVORI</h1>
           <!--main content-->
           <div class="row">
+              <div id="prikaz"></div>
 
-            <div class="col-lg-6">
-
-              <!-- Default Card Example -->
-              <div class="card mb-4">
-                <div id="textQuestion" class="card-header">
-                  Pitanje...
-                </div>
-                <div class="card-body">
-                  Odgovor...
-                </div>
-              </div>
-
-              <!-- Basic Card Example -->
-              <div class="card mb-4">
-                <div id="textQuestion" class="card-header">
-                   Pitanje...
-                </div>
-                <div class="card-body">
-                  Odgovor...
-                </div>
-
-              </div>
-              <div class="card mb-4">
-                <div id="textQuestion" class="card-header">
-                    Pitanje...
-                </div>
-                <div class="card-body">
-                    Odgovor...
-                </div>
-              </div>
-
-            </div>
-
-            <div class="col-lg-6">
-
-              <!-- Dropdown Card Example -->
-              <div class="card mb-4">
-                  <div id="textQuestion" class="card-header">
-                     Pitanje...
-                  </div>
-                  <div class="card-body">
-                    Odgovor...
-                  </div>
-                </div>
-  
-                <!-- Collapsable Card Example -->
-                <div class="card mb-4">
-                    <div id="textQuestion" class="card-header">
-                       Pitanje...
-                    </div>
-                    <div  class="card-body">
-                      Odgovor...
-                    </div>
-                  </div>
-
-                
-                  <!-- Card Header - Accordion -->
-                  <div class="card mb-4">
-                      <div class="card-header">
-                         Pitanje...
-                      </div>
-                  <!-- Card Content - Collapse -->
-                  <div class="card-body">
-                      Odgovor...
-                    </div>
-                  </div>
-                </div>
-
-                </div>
+          </div>
   
               </div>
             
@@ -200,18 +133,19 @@
             console.log(data);
             let html = '';
             let lastIndex = 0;
-            data.map((bugs, index) => {
+            data.map((bug, index) => {
               console.log("TRENUTNI: ", index);
               console.log("LAST INDEX: ", lastIndex);
               console.log("LAST INDEX + 1: ", lastIndex+3);
     
-              if(index == 0 || index == lastIndex +3){
+              if(index == 0 || index == lastIndex +2){
                 if(index == 0){
-                  html += '<div class="card mb-4"> </div>';
-                }
-                else {
-                  html += '<div class="card-body"> </div>';            
-                }
+                html += '<div class="col-lg-6">';
+              }
+              else {
+                html += '</div><div class="col-lg-6">';
+              }
+
                 lastIndex = index;
               }
                /*
@@ -226,10 +160,10 @@
                */
               html+= `<div class="card mb-4">
                 <div id="textQuestion" class="card-header">
-                   
+                   ${bug.problem}
                 </div>
                 <div class="card-body">
-                  Odgovor...
+                  ${bug.answer}
                 </div>`
     
             });
