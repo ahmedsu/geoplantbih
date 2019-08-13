@@ -76,7 +76,7 @@
   
 
     <script>
-        const webSrw = "http://192.168.43.87:3000";
+        const webSrw = "http://192.168.43.87:3000/answers";
         const ammarcehaUrl = 'http://192.168.43.87:3003';
         const azraUrl = 'http://192.168.43.102:3003';
       
@@ -127,7 +127,7 @@
                  body: JSON.stringify(bug)
              })
              .then(res=>
-              window.location.href = webSrw
+              window.location.href = webSrw 
              )
              .catch(err=>console.log(err));
        }
