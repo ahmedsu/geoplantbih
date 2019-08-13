@@ -128,12 +128,12 @@
 
   $(function(){
     console.log("UCITAVANJE");
-    getPlants(); // izvrsavanje funkcije
+    getFamily(); // izvrsavanje funkcije
   })
 
-  function getPlants(){
+  function getFamily(){
     console.log("Uslo u funkciju");
-    let requestUrl = mainUrl + "/plants";
+    let requestUrl = mainUrl + "/plantfamilies";
     console.log(requestUrl);
     $.ajax({
       type:'GET',
@@ -147,7 +147,7 @@
         console.log(data);
         let html = '';
         let lastIndex = 0;
-        data.map((plant, index) => {
+        data.map((family, index) => {
           console.log("TRENUTNI: ", index);
           console.log("LAST INDEX: ", lastIndex);
           console.log("LAST INDEX + 1: ", lastIndex+3);
@@ -169,10 +169,10 @@
               </div>
             </div> */
           html+= `<div class="card border-0" style="margin-bottom: 20px">
-              <img src="${plant.image != null ? plant.image : ''}" class="card-img-top velicinaGrida" alt="Nema slike">
+              <img src="${family.image != null ? family.image : ''}" class="card-img-top velicinaGrida" alt="Nema slike">
               <div class="card-body">
                 <h5 class="card-title"> ${
-                  plant.name
+                  family.name
                 }
                 </h5>
                 
