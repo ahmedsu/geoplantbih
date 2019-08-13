@@ -26,7 +26,7 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-   <% include ../partials/sidebar %>
+    <% include ../partials/sidebar %>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -43,29 +43,43 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-4 text-white">Pregled porodica biljaka
-          </h1>
+          <h1 class="h3 mb-4 text-white">Lista svih biljaka</h1>
 
-          
-            <div id="prikaz"></div>
-      
-        <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Prethodna</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#">Sljedeća</a>
-            </li>
-          </ul>
-        </nav>
 
-      
-      
-      </div><!-- /.container-fluid -->
+ <!--search bar-->
+
+ <nav class="navbar navbar-light justify-content-center">
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Pretraži biljke" aria-label="Search">
+    <button class="btn btn-primary btn-custom my-2 my-sm-0" type="submit">Traži</button>
+  </form>
+</nav>
+
+
+          <!--tabela-->
+        <div id="prikaz"></div>
+       
+
+<!--kraj tabele-->
+
+ <!--page navigation-->
+ <nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center div-margin-top">
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Prethodna</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Sljedeća</a>
+    </li>
+  </ul>
+</nav>
+
+
+    </div>
+        <!-- /.container-fluid -->
 
       </div>
       <!-- End of Main Content -->
@@ -123,17 +137,20 @@
 </body>
 
 </html>
-<script>
-  const mainUrl = 'http://192.168.43.87:3003';
 
+<script>
+  const ammarcehaUrl = 'http://192.168.43.87:3003';
+  const azraUrl = 'http://192.168.43.102:3003';
+
+  const mainUrl = ammarcehaUrl;
   $(function(){
     console.log("UCITAVANJE");
-    getFamily(); // izvrsavanje funkcije
+    getPlants(); // izvrsavanje funkcije
   })
 
-  function getFamily(){
+  function getPlants(){
     console.log("Uslo u funkciju");
-    let requestUrl = mainUrl + "/plantfamilies";
+    let requestUrl = mainUrl + "/plants";
     console.log(requestUrl);
     $.ajax({
       type:'GET',
@@ -147,38 +164,36 @@
         console.log(data);
         let html = '';
         let lastIndex = 0;
-        data.map((family, index) => {
+        data.map((plant, index) => {
           console.log("TRENUTNI: ", index);
           console.log("LAST INDEX: ", lastIndex);
-          console.log("LAST INDEX + 1: ", lastIndex+3);
+          console.log("LAST INDEX + 1: ", lastIndex+2);
 
-          if(index == 0 || index == lastIndex +3){
+          if(index == 0 || index == lastIndex +2){
             if(index == 0){
-              html += '<div class="row custom-row-center"><div class="card-deck">';
+              html += '<div class="row custom-row-center">';
             }
             else {
-              html += '</div></div><div class="row custom-row-center"><div class="card-deck">';            
+              html += '</div><div class="row custom-row-center">';            
             }
             lastIndex = index;
           }
-           /*<div class="card border-0">
-              <img src="/img/ljiljan.jpg" class="card-img-top velicinaGrida" alt="./image-not-found.png">
-              <div class="card-body">
-                <h5 class="card-title">Bosanski ljiljan</h5>
-                
+          html+= `<div class="card mb-3 ${index == lastIndex + 1 ? 'div-margin-left' : ''} border-0" style="max-width: 530px;">
+            <div class="row no-gutters h-100">
+              <div class="col-md-4">
+                <img src="${plant.image != null ? plant.image : ''}"  class="card-img h-100 listImage" alt="Nema slike">
               </div>
-            </div> */
-          html+= `<div class="card border-0" style="margin-bottom: 20px">
-              <a href="/plantsFromFamily"><img src="${family.image != null ? family.image : ''}" class="card-img-top velicinaGrida" alt="Nema slike"></a>
-              <div class="card-body">
-                <h5 class="card-title"> ${
-                  family.name
-                }
-                </h5>
-                
-              </div>
-            </div>`
+              <div class="col-md-8">
+                <div class="card-body">
+                    <div class="btn flowerBar oznakaBiljke text-white" > <img src="/img/leaf.png" class="logoBiljke"> Ukrasno</div>
 
+                  <h5 class="card-title">${plant.name}</h5>
+                  <p class="card-text"></p>
+                  <p class="card-text">Lokacija: Visoko</p>
+                </div>
+              </div>
+            </div>
+          </div>`
         });
         html += '</div>';
         $("#prikaz").html(html);
@@ -190,4 +205,3 @@
     })
   }
 </script>
-
