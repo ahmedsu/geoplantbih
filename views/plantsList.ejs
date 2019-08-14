@@ -50,8 +50,8 @@
 
  <nav class="navbar navbar-light justify-content-center">
   <form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Pretraži biljke" aria-label="Search">
-    <button class="btn btn-primary btn-custom my-2 my-sm-0" type="submit">Traži</button>
+    <input class="form-control mr-sm-2" type="search" placeholder="Pretraži biljke" aria-label="Search" id="plantsSearch">
+    <button class="btn btn-primary btn-custom my-2 my-sm-0" type="button" id="btnPlantSearch">Traži</button>
   </form>
 </nav>
 
@@ -143,10 +143,77 @@
   const azraUrl = 'http://192.168.43.102:3003';
 
   const mainUrl = ammarcehaUrl;
+  const webUrl = 'http://192.168.43.87:3000';
   $(function(){
     console.log("UCITAVANJE");
     getPlants(); // izvrsavanje funkcije
+    $("#plantsSearch").on("keydown", () => {
+      console.log("ISPIS");
+      let value = $("#plantsSearch").val();
+      if(value == ''){
+        console.log("PRAZAN");
+        getPlants();  
+      }
+
+      setTimeout(() => {
+        searchPlants(value);
+      }, 600);
+      
+    })
   })
+
+  function searchPlants(value){
+    let requestUrl = mainUrl + "/plants/search/" + value;
+      $.ajax({
+        type:'GET',
+        url: requestUrl,
+        headers: {
+        'Access-Control-Allow-Origin': 'http://localhost:3000',
+        'Content-Type': 'application/json'
+        },
+        success: (data) => {
+          console.log(data);
+          let html = '';
+        let lastIndex = 0;
+        data.map((plant, index) => {
+          console.log("TRENUTNI: ", index);
+          console.log("LAST INDEX: ", lastIndex);
+          console.log("LAST INDEX + 1: ", lastIndex+2);
+
+          if(index == 0 || index == lastIndex +2){
+            if(index == 0){
+              html += '<div class="row custom-row-center">';
+            }
+            else {
+              html += '</div><div class="row custom-row-center">';            
+            }
+            lastIndex = index;
+          }
+          html+= `<a href="${webUrl+"/plants/plantSingle/?plantID="+plant.id}"><div class="card mb-3 ${index == lastIndex + 1 ? 'div-margin-left' : ''} border-0" style="max-width: 530px;">
+            <div class="row no-gutters h-100">
+              <div class="col-md-4">
+                <img src="${plant.image != null ? plant.image : ''}"  class="card-img h-100 listImage" alt="Nema slike">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                    <div class="btn ${plant.type=='otrovna' ? "poisonBar" : plant.type=='ljekovita' ? "healthyBar" : "flowerBar" } oznakaBiljke text-white" > <img src="${plant.type == 'otrovna' ? "/img/death-sign.png" : plant.type == 'ljekovita' ? "/img/bowl-with-vegetables.png" : "/img/leaf.png"}" class="logoBiljke">${plant.type == 'otrovna' ? " Otrovna" : plant.type == 'ljekovita' ? " Ljekovita" : " Neutralna"}</div>
+
+                  <h5 class="card-title">${plant.name}</h5>
+                  <p class="card-text"></p>
+                  <p class="card-text">Lokacija: Visoko</p>
+                </div>
+              </div>
+            </div>
+          </div></a>`
+        });
+        html += '</div>';
+        $("#prikaz").html(html);
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+  }
 
   function getPlants(){
     console.log("Uslo u funkciju");
@@ -178,14 +245,14 @@
             }
             lastIndex = index;
           }
-          html+= `<div class="card mb-3 ${index == lastIndex + 1 ? 'div-margin-left' : ''} border-0" style="max-width: 530px;">
+          html+= `<a href="${webUrl+"/plants/plantSingle/?plantID="+plant.id}"><div class="card mb-3 ${index == lastIndex + 1 ? 'div-margin-left' : ''} border-0" style="max-width: 530px;">
             <div class="row no-gutters h-100">
               <div class="col-md-4">
                 <img src="${plant.image != null ? plant.image : ''}"  class="card-img h-100 listImage" alt="Nema slike">
               </div>
               <div class="col-md-8">
                 <div class="card-body">
-                    <div class="btn flowerBar oznakaBiljke text-white" > <img src="/img/leaf.png" class="logoBiljke"> Ukrasno</div>
+                    <div class="btn ${plant.type=='otrovna' ? "poisonBar" : plant.type=='ljekovita' ? "healthyBar" : "flowerBar" } oznakaBiljke text-white" > <img src="${plant.type == 'otrovna' ? "/img/death-sign.png" : plant.type == 'ljekovita' ? "/img/bowl-with-vegetables.png" : "/img/leaf.png"}" class="logoBiljke">${plant.type == 'otrovna' ? " Otrovna" : plant.type == 'ljekovita' ? " Ljekovita" : " Neutralna"}</div>
 
                   <h5 class="card-title">${plant.name}</h5>
                   <p class="card-text"></p>
@@ -193,7 +260,7 @@
                 </div>
               </div>
             </div>
-          </div>`
+          </div></a>`
         });
         html += '</div>';
         $("#prikaz").html(html);
