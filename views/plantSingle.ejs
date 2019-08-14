@@ -54,7 +54,7 @@
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
                           <ul class="list-group list-group-flush">
-                              <li class="list-group-item"><span class="text-bold">Naziv biljke:</span> Kamilica</li>
+                              <li class="list-group-item"><span class="text-bold">Naziv biljke:</span> <span id="nazivBiljke"></span></li>
                               <li class="list-group-item"><span class="text-bold">Latinski naziv biljke:</span> Camomille</li>
                               <li class="list-group-item"><span class="text-bold">Kraljevstvo:</span> Kingdom of Camo</li>
                               <li class="list-group-item"><span class="text-bold">Porodica:</span> Family of Kamilica</li>
@@ -78,7 +78,7 @@
                     <div class="card-body">
                       <div class="row no-gutters align-items-center">
                         
-                          <img src="./img/biljkaTemp.jpg" alt="./img/image-not-found.png" class="img-thumbnail">
+                          <img src="" id="slikaBiljke" alt="Nema slike" class="img-thumbnail">
   
                         
                       </div>
@@ -169,10 +169,10 @@
   <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="/javascript/sb-admin-2.min.js"></script>
+  <script src="/javascripts/sb-admin-2.min.js"></script>
 
   <!-- Google map skripta -->
   <script>
@@ -195,3 +195,35 @@
 </body>
 
 </html>
+
+<script>
+  const ammarcehaUrl = 'http://192.168.43.87:3003';
+  const azraUrl = 'http://192.168.43.102:3003';
+
+  const mainUrl = ammarcehaUrl;
+
+  $(function(){
+    var urlParams = new URLSearchParams(window.location.search);
+    let plantID = urlParams.get('plantID');
+    getPlantDetails(plantID);
+  });
+
+  function getPlantDetails(plantID){
+    $.ajax({
+      type: 'GET',
+      url: mainUrl + "/plant/"+plantID,
+      success: function(data) {
+        console.log("Biljka: ");
+        if(data.length > 0){
+          let plant = data[0];
+          console.log(plant);
+          $("#nazivBiljke").html(plant.name); // ispis imena biljke
+          $("#slikaBiljke").attr("src", plant.image.toString());
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
+  }
+</script>
