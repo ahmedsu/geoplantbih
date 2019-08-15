@@ -46,6 +46,14 @@
 
           <!-- Page Heading -->
           <h1 class="h3 mb-4 text-white">Unos biljke</h1>
+          <div class="btn-group btn-group-toggle" style="margin-bottom: 20px" data-toggle="buttons">
+              <label class="btn active" id="btnSwitch1" style="color:white">
+                <input type="radio" name="options" id="option1" autocomplete="off" checked> Riješena biljka
+              </label>
+              <label class="btn" id="btnSwitch2" style="color:white">
+                <input type="radio" name="options" id="option2" autocomplete="off"> Neriješena biljka
+              </label>
+            </div>
 
         </div>
         <div class="row ">
@@ -56,14 +64,7 @@
                         <form role="form" method="post" action="http://192.168.43.87:3003/plants" enctype="multipart/form-data">
                         <div class="col mr-2">
                             <label for="exampleInputEmail1"></label>
-                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                <label class="btn btn-custom active">
-                                  <input type="radio" name="options" id="option1" autocomplete="off" checked> Riješena biljka
-                                </label>
-                                <label class="btn btn-customy">
-                                  <input type="radio" name="options" id="option2" autocomplete="off"> Neriješena biljka
-                                </label>
-                              </div>
+                            
               <input type="text" class="form-control custom-width" id="nazivBiljke" name="name" placeholder="Unesi naziv">
               
               <label for="exampleInputEmail1"></label>
@@ -222,9 +223,19 @@
   $(function(){ // on document load
     getPorodice();
 
-    $("#btnUnosss").click(() => {     
+    $("#btnUnos").click(() => {     
       insertPlant();
-    })
+    });
+
+    $("#option1").click(() => {
+      $("#btnSwitch2").removeClass("btn-custom");
+      $("#btnSwitch1").addClass("btn-custom");
+    });
+
+    $("#option2").click(() => {
+      $("#btnSwitch1").removeClass("btn-custom");
+      $("#btnSwitch2").addClass("btn-custom");
+    });
   });
 
   function getPorodice(){
