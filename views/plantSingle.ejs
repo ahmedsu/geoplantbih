@@ -56,10 +56,10 @@
                       <div class="col mr-2">
                           <ul class="list-group list-group-flush">
                               <li class="list-group-item"><span class="text-bold">Naziv biljke:</span> <span id="nazivBiljke"></span></li>
-                              <li class="list-group-item"><span class="text-bold">Latinski naziv biljke:</span> Camomille</li>
-                              <li class="list-group-item"><span class="text-bold">Kraljevstvo:</span> Kingdom of Camo</li>
-                              <li class="list-group-item"><span class="text-bold">Porodica:</span> Family of Kamilica</li>
-                              <li class="list-group-item"><span class="text-bold">Red:</span> Vitez</li>
+                              <li class="list-group-item"><span class="text-bold">Latinski naziv biljke:</span> <span id="latNazivBiljke"></span></li>
+                              <li class="list-group-item"><span class="text-bold">Kraljevstvo:</span> <span id="kraljevstvo"></span></li>
+                              <li class="list-group-item"><span class="text-bold">Porodica:</span> <span id="porodicaBiljke"></span></li>
+                              <li class="list-group-item"><span class="text-bold">Red:</span> <span id="redBiljke"></span></li>
                               <li class="list-group-item"><span class="text-bold">Autor: </span> Visiot</li>
                               <li class="list-group-item"><span class="text-bold">Opis:</span>
                                   <p class="opisBiljke">Lorem ipsum dolor sit ametLorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet dui lectus. Proin id est dui. Morbi id commodo augue, eu eleifend nulla. Sed nisl sem, semper sit amet fringilla vel, congue id erat. Donec dapibus ante nec mauris pulvinar pulvinar. Sed cursus, ante sed facilisis bibendum, nisi leo mollis quam, in dignissim arcu dolor eu est. In semper pharetra lorem, et blandit lorem pretium nec. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed ut orci dictum, mollis felis vel, fringilla justo. Vivamus condimentum sapien eget tellus tincidunt efficitur. Suspendisse eu enim quis mauris scelerisque ornare. In feugiat ut urna non accumsan. Donec ac urna mi.</p>
@@ -220,6 +220,10 @@
           console.log(plant);
           $("#nazivBiljke").html(plant.name); // ispis imena biljke
           $("#slikaBiljke").attr("src", plant.image.toString());
+          $("#latNazivBiljke").html(plant.latName); // ispis lat imena biljke
+          $("#kraljevstvo").html(plant.kingdom); // ispis kraljevstva biljke
+          $("#porodicaBiljke").html(plant.family); // ispis porodice biljke
+          $("#redBiljke").html(plant.plantOrder); // ispis reda biljke
         }
       },
       error: (err) => {
