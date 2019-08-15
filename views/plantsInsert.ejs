@@ -111,9 +111,7 @@
                                                       <div class="card border-left-info shadow h-100 py-2 div-margin">
                                                         <div class="card-body">
                                                           <div class="row no-gutters align-items-center">
-                                                            
-                                                              <div id="map" style="width:100%; height: 800px">
-                                                    
+                                                              <div id="map" style="width:100%; height: 400px">
                                                                 </div>
                                                           </div>
                                                         </div>
@@ -254,6 +252,122 @@
 
 </html>
 
+<!-- Google map skripta -->
+<script>
+  const ammarcehaUrl = 'http://192.168.43.87:3003';
+  const azraUrl = 'http://192.168.43.102:3003';
+
+  const mainUrl = ammarcehaUrl;
+  $(function(){
+    console.log("UCITAVANJE");
+    //getPlants(); // izvrsavanje funkcije
+  })
+
+  let positionsArr = []; // niz koordinata
+
+function getPlants(){
+  console.log("Uslo u funkciju");
+  let requestUrl = mainUrl + "/plants";
+  console.log(requestUrl);
+  $.ajax({
+    type:'GET',
+    url: requestUrl,
+    headers: {
+      'Access-Control-Allow-Origin': 'http://localhost:3000',
+      'Content-Type': 'application/json'
+    },
+    success: (data) => {
+      console.log("Uspjesan get");
+      console.log(data);
+      data.forEach(plant => {
+          positionsArr.push({"plantId":plant.id, "name": plant.name, "geoLat":plant.geoLat, "geoLon": plant.geoLon});
+      });
+      
+    },
+    error: (err) => {
+      console.log("Error");
+      console.log(err);
+    }
+  })
+}
+
+
+  var map;
+  var markerImg = "./img/markerPlant.png";
+  function initMap() {
+    let requestUrl = mainUrl + "/plants";
+    console.log(requestUrl);
+    $.ajax({
+      type:'GET',
+      url: requestUrl,
+      headers: {
+        'Access-Control-Allow-Origin': 'http://localhost:3000',
+        'Content-Type': 'application/json'
+      },
+      success: (data) => {
+        console.log("Uspjesan get");
+        console.log(data);
+        data.forEach(plant => {
+            positionsArr.push({"plantId":plant.id, "name": plant.name, "geoLat":plant.geoLat, "geoLon": plant.geoLon});
+        });
+        console.log("INIT");
+    var markerPosition = {lat: 43.988766, lng: 18.179884};
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: markerPosition,
+      zoom: 9
+    });
+
+    var iconBase =
+          'https://developers.google.com/maps/documentation/javascript/examples/full/images/';
+
+      var icons = {
+        parking: {
+          icon: iconBase + 'parking_lot_maps.png'
+        },
+        library: {
+          icon: iconBase + 'library_maps.png'
+        },
+        info: {
+          icon: iconBase + 'info-i_maps.png'
+        }
+      };
+
+    let features = [];
+
+    positionsArr.forEach(pos => {
+      console.log(pos);
+      console.log("TEST");
+      console.log(pos.geoLat + " - " + pos.geoLon);
+      features.push({
+        position: new google.maps.LatLng(pos.geoLat, pos.geoLon),
+        type: "info"
+      })
+    });
+
+    // Create markers.
+    for (var i = 0; i < features.length; i++) {
+          var marker = new google.maps.Marker({
+            position: features[i].position,
+            icon: "/img/markerPlant.png",
+            map: map
+          });
+        };
+
+    // The marker, positioned at Uluru
+    //var marker = new google.maps.Marker({position: markerPosition, map: map, icon: markerImg});
+      },
+      error: (err) => {
+        console.log("Error");
+        console.log(err);
+      }
+    })
+
+
+
+  }
+</script>
+<!--kraj mape-->
+
 <script>
   const ammarcehaUrl = 'http://192.168.43.87:3003';
   const azraUrl = 'http://192.168.43.102:3003';
@@ -348,117 +462,4 @@
  }
 </script>
 
-<!-- Google map skripta -->
-<script>
-    const ammarcehaUrl = 'http://192.168.43.87:3003';
-    const azraUrl = 'http://192.168.43.102:3003';
 
-    const mainUrl = ammarcehaUrl;
-    $(function(){
-      console.log("UCITAVANJE");
-      //getPlants(); // izvrsavanje funkcije
-    })
-
-    let positionsArr = []; // niz koordinata
-  
-  function getPlants(){
-    console.log("Uslo u funkciju");
-    let requestUrl = mainUrl + "/plants";
-    console.log(requestUrl);
-    $.ajax({
-      type:'GET',
-      url: requestUrl,
-      headers: {
-        'Access-Control-Allow-Origin': 'http://localhost:3000',
-        'Content-Type': 'application/json'
-      },
-      success: (data) => {
-        console.log("Uspjesan get");
-        console.log(data);
-        data.forEach(plant => {
-            positionsArr.push({"plantId":plant.id, "name": plant.name, "geoLat":plant.geoLat, "geoLon": plant.geoLon});
-        });
-        
-      },
-      error: (err) => {
-        console.log("Error");
-        console.log(err);
-      }
-    })
-  }
-
-
-    var map;
-    var markerImg = "./img/markerPlant.png";
-    function initMap() {
-      let requestUrl = mainUrl + "/plants";
-      console.log(requestUrl);
-      $.ajax({
-        type:'GET',
-        url: requestUrl,
-        headers: {
-          'Access-Control-Allow-Origin': 'http://localhost:3000',
-          'Content-Type': 'application/json'
-        },
-        success: (data) => {
-          console.log("Uspjesan get");
-          console.log(data);
-          data.forEach(plant => {
-              positionsArr.push({"plantId":plant.id, "name": plant.name, "geoLat":plant.geoLat, "geoLon": plant.geoLon});
-          });
-          console.log("INIT");
-      var markerPosition = {lat: 43.988766, lng: 18.179884};
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: markerPosition,
-        zoom: 9
-      });
-
-      var iconBase =
-            'https://developers.google.com/maps/documentation/javascript/examples/full/images/';
-
-        var icons = {
-          parking: {
-            icon: iconBase + 'parking_lot_maps.png'
-          },
-          library: {
-            icon: iconBase + 'library_maps.png'
-          },
-          info: {
-            icon: iconBase + 'info-i_maps.png'
-          }
-        };
-
-      let features = [];
-
-      positionsArr.forEach(pos => {
-        console.log(pos);
-        console.log("TEST");
-        console.log(pos.geoLat + " - " + pos.geoLon);
-        features.push({
-          position: new google.maps.LatLng(pos.geoLat, pos.geoLon),
-          type: "info"
-        })
-      });
-
-      // Create markers.
-      for (var i = 0; i < features.length; i++) {
-            var marker = new google.maps.Marker({
-              position: features[i].position,
-              icon: "/img/markerPlant.png",
-              map: map
-            });
-          };
-
-      // The marker, positioned at Uluru
-      //var marker = new google.maps.Marker({position: markerPosition, map: map, icon: markerImg});
-        },
-        error: (err) => {
-          console.log("Error");
-          console.log(err);
-        }
-      })
-
-
-
-    }
-  </script>
