@@ -61,7 +61,7 @@
                 <div class="card border-left-primary shadow h-100 py-2 div-margin">
                     <div class="card-body">
                       <div class="row no-gutters align-items-center">
-                        <form role="form" method="post" action="http://192.168.43.87:3003/plants" enctype="multipart/form-data">
+                        <form id="formSolved" role="form" method="post" action="http://192.168.43.87:3003/plants" enctype="multipart/form-data">
                         <div class="col mr-2">
                             <label for="exampleInputEmail1"></label>
                             
@@ -271,7 +271,12 @@
       $("#btnSwitch1").addClass("btn-custom");
     });
 
+    $("#btnSwitch2").click(() => {
+      $("#formSolved").css({"display":"none"});      
+    })
+
     $("#option2").click(() => {
+      console.log("CLICK"); 
       $("#btnSwitch1").removeClass("btn-custom");
       $("#btnSwitch2").addClass("btn-custom");
     });
