@@ -61,6 +61,79 @@
                 <div class="card border-left-primary shadow h-100 py-2 div-margin">
                     <div class="card-body">
                       <div class="row no-gutters align-items-center">
+                          <form id="formUnsolved" style="display:none;" role="form" method="post" action="http://192.168.43.87:3003/plants" enctype="multipart/form-data">
+                            <div class="col mr-2">
+                               
+                  <div class="input-group mb-3">
+                      <!--pocetak forme, koordinate-->             
+                          <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                              <label for="validationServer01"></label>
+                              <input type="text" class="form-control" id="lat" placeholder="Lat" name="geoLat" value="" >
+                              
+                            </div>
+                            
+                            <div class="col-md-4 mb-3">
+                              <label for="validationServer02"></label>
+                              <input type="text" class="form-control" id="lon" placeholder="Long" name="geoLon" value="" >
+                            </div>
+                              
+                                      <div class="col-md-4 mb-3 ">
+                                      <label for="validationServer02"></label>
+                                      <br>
+                                      <button type="button" class="btn btn-light"  id="validationServer02" data-toggle="modal" data-target="#exampleModal">Odaberi na karti</button>
+    
+                                      <!-- Modal -->
+                                          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" style="max-width: 95% !important;" role="document">
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <h5 class="modal-title " id="exampleModalLabel">Označi biljku na karti</h5>
+                                                  <button type="button" class="btn btn- text-white div-margin" data-dismiss="modal">Spasi</button>
+                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                  </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                  <!--mapa-->
+                                                    <div class="row">
+                                                      <div class="col-md-12 div-margin div-margin-top">
+                                                          
+                                                          <div class="card border-left-info shadow h-100 py-2 div-margin">
+                                                            <div class="card-body">
+                                                              <div class="row no-gutters align-items-center">
+                                                                  <div id="map" style="width:100%; height: 550px">
+                                                                    </div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                      <!--kraj mape-->
+                                                </div>
+                                                <div class="modal-footer">
+                                                 
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                    </div>
+                                </div>
+                            <div class="input-group mb-3 custom-width">
+                                <div class="custom-file">
+                                  <input class="form-control custom-file-input" type="file" name="uploaded_image" accept=""/>
+                                  <label class="custom-file-label" for="inputGroupFile02">Odaberi sliku</label>
+                                </div>
+                                <div class="input-group-append">
+                                  
+                                </div>
+                              </div>  
+                      </div>
+                      
+                      <button type="submit" id="btnUnos" class="btn btn-primary btn-lg" style="left:500; background:seagreen">Unesi</button>
+                    </div><!-- end -->
+                  </form>
+
                         <form id="formSolved" role="form" method="post" action="http://192.168.43.87:3003/plants" enctype="multipart/form-data">
                         <div class="col mr-2">
                             <label for="exampleInputEmail1"></label>
@@ -271,8 +344,14 @@
       $("#btnSwitch1").addClass("btn-custom");
     });
 
+    $("#btnSwitch1").click(() => {
+      $("#formUnsolved").css({"display":"none"});      
+      $("#formSolved").css({"display":"block"});      
+    })
+
     $("#btnSwitch2").click(() => {
-      $("#formSolved").css({"display":"none"});      
+      $("#formSolved").css({"display":"none"});  
+      $("#formUnsolved").css({"display":"block"});
     })
 
     $("#option2").click(() => {
