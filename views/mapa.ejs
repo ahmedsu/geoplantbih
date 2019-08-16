@@ -133,24 +133,16 @@
   <!-- Custom scripts for all pages-->
   <script src="/javascript/sb-admin-2.min.js"></script>
 
-  <!-- Google map skripta -->
-  <script>
-    var map;
-    var markerImg = "./img/markerPlant.png";
-    function initMap() {
-      var markerPosition = {lat: 43.988766, lng: 18.179884};
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: markerPosition,
-        zoom: 18
-      });
-
-      // The marker, positioned at Uluru
-      var marker = new google.maps.Marker({position: markerPosition, map: map, icon: markerImg});
-    }
-  </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBV-8rNBU_ch5FsfdEVAfqFhVX-Kg5QnFY&callback=initMap"
   async defer></script>
 
 </body>
 
 </html>
+
+ <!-- Google map skripta -->
+ <script>
+    $(function(){
+      console.log("TEST")
+    })
+  </script>

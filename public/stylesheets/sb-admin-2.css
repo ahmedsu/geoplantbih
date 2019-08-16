@@ -12097,6 +12097,17 @@ a.btn-user:hover {
   border-color: #97c06c !important;
 }
 
+.btn.active {
+  background-color: #97c06c !important;
+  border-color: #97c06c !important;
+}
+
+.btn.active {
+  background-color: #97c06c !important;
+  border-color: #97c06c !important;
+}
+
+
 .btn-custom:hover{
   background-color: #95afc0 !important;
 }

@@ -59,7 +59,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-color:text-uppercase mb-1">Ukupno biljaka (riješeno)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800" id="brojBiljaka">4000</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800" id="brBiljakaSolved"></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-seedling"></i>
@@ -76,7 +76,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Ukupno biljaka (neriješeno)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">500</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800" id="brBiljakaUnsolved">500</div>
                     </div>
                     <div class="col-auto">
                       <i class="far fa-question-circle"></i>
@@ -95,7 +95,7 @@
                       <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Ukupno lokacija</div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50</div>
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="brLokacije"></div>
                         </div>
                         <div class="col">
                           <div class="progress progress-sm mr-2">
@@ -119,7 +119,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Ukupno korisnika</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">100</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800" id="brKorisnici"></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-users"></i>
@@ -365,11 +365,27 @@
       
         const mainUrl = ammarcehaUrl;
     $(function(){
-  $.get(mainUrl+"/plants/count", function(res){ 
-  console.log(res);
- // $("#brojBiljaka").val()
-})
-})
+      console.log("TEST")
+
+      $.ajax({
+        url: mainUrl+"/totals",
+        type:"GET",
+        success: (data) => {
+          console.log("WOHO");
+          console.log(data);
+          $("#brBiljakaSolved").html(data.plantsTotalSolved.toString());
+          $("#brBiljakaUnsolved").html(data.plantsTotalUnsolved.toString());
+          $("#brLokacije").html(data.locationsTotal.toString());
+          $("#brKorisnici").html(data.usersTotal.toString());
+
+
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      })
+
+});
     /*var map;
     var markerImg = "./img/markerPlant.png";
     function initMap() {

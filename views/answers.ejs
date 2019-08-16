@@ -45,10 +45,7 @@
           <!-- Page Heading -->
           <h1 class="h3 mb-4 text-white">ODGOVORI</h1>
           <!--main content-->
-          <div class="row">
               <div id="prikaz"></div>
-
-          </div>
   
               </div>
             
@@ -136,14 +133,14 @@
             data.map((bug, index) => {
               console.log("TRENUTNI: ", index);
               console.log("LAST INDEX: ", lastIndex);
-              console.log("LAST INDEX + 1: ", lastIndex+3);
+              console.log("LAST INDEX + 1: ", lastIndex+2);
     
               if(index == 0 || index == lastIndex +2){
                 if(index == 0){
-                html += '<div class="col-lg-6">';
+                html += '<div class="row">';
               }
               else {
-                html += '</div><div class="col-lg-6">';
+                html += '</div><div class="row">';
               }
 
                 lastIndex = index;
@@ -158,13 +155,13 @@
                 </div>
 
                */
-              html+= `<div class="card mb-4">
+              html+= `<div class="col-lg-6"><div class="card mb-4">
                 <div id="textQuestion" class="card-header">
-                   ${bug.problem}
+                   <span style="font-weight:bold">Pitanje: </span> ${bug.problem}
                 </div>
                 <div class="card-body">
-                  ${bug.answer}
-                </div>`
+                  <span style="font-weight:bold">Odgovor: </span> ${bug.answer == null ? "Nema odgovora" : bug.answer}
+                </div></div></div>`
     
             });
             html += '</div>';
